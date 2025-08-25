@@ -1,0 +1,42 @@
+# Gitleaks Configuration for Pre-commit Hooks
+title = "Gitleaks Config for Pre-commit"
+
+# Custom rules for detecting secrets
+[[rules]]
+id = "generic-api-key"
+description = "Generic API Key"
+regex = '''(?i)(api[_-]?key|apikey)\s*[=:]\s*["\']?[a-zA-Z0-9_-]{20,}["\']?'''
+keywords = ["api_key", "apikey", "API_KEY"]
+
+[[rules]]
+id = "generic-password"
+description = "Generic Password"
+regex = '''(?i)(password|pwd|pass)\s*[=:]\s*["\']?[a-zA-Z0-9_@#$%^&*()-+=]{8,}["\']?'''
+keywords = ["password", "PASSWORD", "pwd"]
+
+[[rules]]
+id = "generic-secret-key"
+description = "Generic Secret Key"
+regex = '''(?i)(secret[_-]?key|secretkey|secret)\s*[=:]\s*["\']?[a-zA-Z0-9_-]{16,}["\']?'''
+keywords = ["secret_key", "secretkey", "SECRET_KEY", "secret"]
+
+[[rules]]
+id = "sk-pattern"
+description = "SK Pattern (OpenAI/Stripe like)"
+regex = '''sk-[a-zA-Z0-9_-]{20,}'''
+
+[[rules]]
+id = "jwt-token"
+description = "JWT Token"
+regex = '''eyJ[a-zA-Z0-9_-]*\.eyJ[a-zA-Z0-9_-]*\.[a-zA-Z0-9_-]*'''
+
+# Allowlist paths (files to skip scanning)
+[allowlist]
+paths = [
+    '''^\.git/''',
+    '''^node_modules/''',
+    '''^\.pre-commit-config\.yaml$''',
+    '''^\.gitleaks\.toml$''',
+    '''^demo-secrets\.txt$''',
+    '''^demo-scripts\.sh$'''
+]
