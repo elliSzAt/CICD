@@ -18,7 +18,7 @@ services:
       start_period: 10s
     restart: unless-stopped
     container_name: cicd-demo-app
-    
+
   # Nginx reverse proxy (optional, for production-like setup)
   nginx:
     image: nginx:alpine

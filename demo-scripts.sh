@@ -41,10 +41,10 @@ demo_local_app() {
     echo ""
     echo "🏠 Demo 1: Local Application"
     echo "----------------------------"
-    
+
     print_info "Installing dependencies..."
     npm install
-    
+
     print_info "Starting application on port 3000..."
     echo "Access at: http://localhost:3000"
     echo "Health check: http://localhost:3000/health"
@@ -58,12 +58,12 @@ demo_docker_build() {
     echo ""
     echo "🐳 Demo 2: Docker Build & Run"
     echo "------------------------------"
-    
+
     print_info "Building Docker image..."
     docker build -t cicd-demo:latest .
-    
+
     print_status "Docker image built successfully!"
-    
+
     print_info "Running Docker container..."
     echo "Access at: http://localhost:3001"
     docker run -p 3001:3000 --rm --name cicd-demo-container cicd-demo:latest
@@ -73,7 +73,7 @@ demo_docker_compose() {
     echo ""
     echo "🐙 Demo 3: Docker Compose (with Nginx)"
     echo "---------------------------------------"
-    
+
     print_info "Starting services with docker-compose..."
     docker-compose up --build
 }
@@ -82,16 +82,16 @@ demo_gitleaks_success() {
     echo ""
     echo "🔐 Demo 4: Gitleaks Success (Clean Code)"
     echo "----------------------------------------"
-    
+
     # Make sure demo-secrets.txt is not committed
     if [ -f "demo-secrets.txt" ]; then
         print_warning "Moving demo-secrets.txt to .gitignore"
         echo "demo-secrets.txt" >> .gitignore
         git rm --cached demo-secrets.txt 2>/dev/null || true
     fi
-    
+
     print_info "Running Gitleaks scan on clean codebase..."
-    
+
     if command -v gitleaks &> /dev/null; then
         gitleaks detect --source . --verbose
         print_status "Gitleaks scan completed - No secrets found!"
@@ -106,10 +106,10 @@ demo_gitleaks_failure() {
     echo ""
     echo "🚨 Demo 5: Gitleaks Failure (Secrets Detected)"
     echo "------------------------------------------------"
-    
+
     print_warning "This demo will simulate secrets in code"
     print_info "Adding demo-secrets.txt to simulate hardcoded secrets..."
-    
+
     # Ensure the secrets file exists
     if [ ! -f "demo-secrets.txt" ]; then
         print_error "demo-secrets.txt not found! Creating it..."
@@ -120,10 +120,10 @@ AWS_SECRET_ACCESS_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
 JWT_SECRET=super-secret-jwt-key-that-should-not-be-hardcoded
 EOF
     fi
-    
+
     if command -v gitleaks &> /dev/null; then
         print_info "Running Gitleaks scan..."
-        
+
         # This should fail and detect secrets
         if gitleaks detect --source . --verbose; then
             print_warning "No secrets detected (unexpected)"
@@ -136,7 +136,7 @@ EOF
         echo "  brew install gitleaks  # macOS"
         echo "  # or download from: https://github.com/gitleaks/gitleaks/releases"
     fi
-    
+
     print_warning "Remember to remove demo-secrets.txt before committing to prevent pipeline failure!"
 }
 
@@ -144,7 +144,7 @@ demo_github_setup() {
     echo ""
     echo "🐙 Demo 6: GitHub Setup Guide"
     echo "------------------------------"
-    
+
     print_info "GitHub Repository Setup:"
     echo "1. Create new repository on GitHub"
     echo "2. Clone or initialize repo:"
@@ -155,21 +155,21 @@ demo_github_setup() {
     echo "   git remote add origin https://github.com/your-username/cicd-demo.git"
     echo "   git push -u origin main"
     echo ""
-    
+
     print_info "GitHub Secrets Setup:"
     echo "Go to: Settings → Secrets and variables → Actions"
     echo "Add these secrets:"
     echo "- TELEGRAM_BOT_TOKEN: Get from @BotFather on Telegram"
     echo "- TELEGRAM_CHAT_ID: Your chat/channel ID"
     echo ""
-    
+
     print_info "Getting Telegram Bot Token:"
     echo "1. Message @BotFather on Telegram"
     echo "2. Send /newbot"
     echo "3. Follow instructions to create bot"
     echo "4. Save the token"
     echo ""
-    
+
     print_info "Getting Chat ID:"
     echo "1. Add bot to your channel/group or chat directly"
     echo "2. Send a message to the bot"

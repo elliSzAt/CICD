@@ -4,7 +4,7 @@
 
 Dự án này minh họa một CI/CD pipeline hoàn chỉnh sử dụng:
 - **GitHub Actions** cho automation
-- **Docker** cho containerization  
+- **Docker** cho containerization
 - **Gitleaks** cho security scanning (SAST)
 - **Telegram** cho notifications
 
@@ -55,7 +55,7 @@ graph TD
     A[Push/PR to main] --> B[Security Scan - Gitleaks]
     B --> C[Build & Test]
     C --> D[Docker Build & Push]
-    
+
     B -->|Secrets Found| E[❌ Telegram Alert]
     C -->|Build Failed| F[❌ Telegram Alert]
     D -->|Build Failed| G[❌ Telegram Alert]
@@ -123,7 +123,7 @@ docker-compose up --build
 4. Merge vào main
 5. Pipeline chạy thành công → Telegram notification
 
-### ❌ Failure Scenario  
+### ❌ Failure Scenario
 1. Commit code có hardcoded secrets
 2. Push lên main branch
 3. Gitleaks detect secrets
@@ -133,7 +133,7 @@ docker-compose up --build
 
 ### Thành công:
 - ✅ Security scan passed
-- ✅ Build & test passed  
+- ✅ Build & test passed
 - ✅ Docker image built
 - ✅ Deployment successful
 - ✅ Telegram notification sent
@@ -163,13 +163,13 @@ docker-compose up --build
 
 ### **CI (Continuous Integration)**
 - **Mục đích**: Tích hợp code changes liên tục
-- **Giai đoạn**: 
+- **Giai đoạn**:
   - Security scanning (Gitleaks)
   - Code testing
   - Build application
   - Docker image creation
 
-### **CD (Continuous Deployment)**  
+### **CD (Continuous Deployment)**
 - **Mục đích**: Deploy tự động lên production
 - **Giai đoạn**:
   - Deploy application
@@ -208,7 +208,7 @@ docker-compose up --build
 ## 🔄 Workflow Triggers
 
 - **Push to main/master**: Full CI/CD pipeline
-- **Pull Request**: CI only (security + build + test)  
+- **Pull Request**: CI only (security + build + test)
 - **Manual trigger**: Có thể trigger manually từ GitHub UI
 
 ## 📚 Learning Outcomes

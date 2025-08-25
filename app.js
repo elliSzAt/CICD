@@ -70,14 +70,14 @@ app.get('/', (req, res) => {
         <div class="container">
             <h1>🚀 CICD Pipeline Demo</h1>
             <div class="version">Version: 1.0.0</div>
-            
+
             <div class="features">
                 <div class="feature">✅ GitHub Actions CI/CD Pipeline</div>
                 <div class="feature">🐳 Docker Containerization</div>
                 <div class="feature">🔐 Gitleaks Security Scanning</div>
                 <div class="feature">📱 Telegram Notifications</div>
             </div>
-            
+
             <p>This webapp demonstrates a complete CICD pipeline with:</p>
             <ul style="text-align: left; max-width: 400px; margin: 0 auto;">
                 <li>Automated testing and building</li>
@@ -86,7 +86,7 @@ app.get('/', (req, res) => {
                 <li>Deployment automation</li>
                 <li>Alert notifications</li>
             </ul>
-            
+
             <div class="timestamp">
                 Last deployed: ${new Date().toLocaleString('vi-VN')}
             </div>
