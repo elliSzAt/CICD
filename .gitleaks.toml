@@ -41,10 +41,7 @@ regex = '''(?i)(db[_-]?password|database[_-]?password)\s*[=:]\s*["\']?[a-zA-Z0-9
 [allowlist]
 paths = [
     '''^\.git/''',
-    '''^node_modules/''',
-    '''^demo-secrets\.txt$''',
-    '''^secret-demo\.txt$''',
-    '''^demo-scripts\.sh$'''
+    '''^node_modules/'''
 ]
 
 # Global allowlist (patterns to ignore)
