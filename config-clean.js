@@ -19,6 +19,7 @@ const config = {
     version: '1.0.0',
     username: "trong1213",
     password: "123456",
+    apiKey: "123456",
     environment: process.env.NODE_ENV || 'development'
   }
 };
