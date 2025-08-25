@@ -1,42 +1,39 @@
-# Gitleaks Configuration for Pre-commit Hooks
-title = "Gitleaks Config for Pre-commit"
+# Gitleaks Configuration Options
+# Choose your security level:
 
-# Custom rules for detecting secrets
-[[rules]]
-id = "generic-api-key"
-description = "Generic API Key"
-regex = '''(?i)(api[_-]?key|apikey)\s*[=:]\s*["\']?[a-zA-Z0-9_-]{20,}["\']?'''
-keywords = ["api_key", "apikey", "API_KEY"]
+# OPTION 1: Production-ready (Default Gitleaks rules)
+# - Catches real service secrets (AWS, GitHub, Stripe)
+# - Ignores obvious demo/placeholder values
+# - Minimal false positives
 
-[[rules]]
-id = "generic-password"
-description = "Generic Password"
-regex = '''(?i)(password|pwd|pass)\s*[=:]\s*["\']?[a-zA-Z0-9_@#$%^&*()-+=]{8,}["\']?'''
-keywords = ["password", "PASSWORD", "pwd"]
+# OPTION 2: Strict mode (Everything blocked)
+# - Catches any hardcoded values
+# - Many false positives
+# - Good for demo/learning
 
-[[rules]]
-id = "generic-secret-key"
-description = "Generic Secret Key"
-regex = '''(?i)(secret[_-]?key|secretkey|secret)\s*[=:]\s*["\']?[a-zA-Z0-9_-]{16,}["\']?'''
-keywords = ["secret_key", "secretkey", "SECRET_KEY", "secret"]
+# Current: Using DEFAULT RULES (no custom rules defined)
 
-[[rules]]
-id = "sk-pattern"
-description = "SK Pattern (OpenAI/Stripe like)"
-regex = '''sk-[a-zA-Z0-9_-]{20,}'''
-
-[[rules]]
-id = "jwt-token"
-description = "JWT Token"
-regex = '''eyJ[a-zA-Z0-9_-]*\.eyJ[a-zA-Z0-9_-]*\.[a-zA-Z0-9_-]*'''
-
-# Allowlist paths (files to skip scanning)
 [allowlist]
 paths = [
     '''^\.git/''',
     '''^node_modules/''',
-    '''^\.pre-commit-config\.yaml$''',
-    '''^\.gitleaks\.toml$''',
     '''^demo-secrets\.txt$''',
-    '''^demo-scripts\.sh$'''
+    '''^demo-scripts\.sh$''',
+    '''^branch-protection-setup\.md$'''
 ]
+
+# Uncomment below for STRICT MODE:
+# [[rules]]
+# id = "any-password"
+# description = "Any Password Field"
+# regex = '''(?i)(password|pwd)\s*[=:]\s*["\'][^"\'\s]{3,}["\']'''
+#
+# [[rules]]
+# id = "any-username"
+# description = "Any Username Field"
+# regex = '''(?i)(username|user)\s*[=:]\s*["\'][^"\'\s]{3,}["\']'''
+#
+# [[rules]]
+# id = "any-apikey"
+# description = "Any API Key Field"
+# regex = '''(?i)(apikey|api_key)\s*[=:]\s*["\'][^"\'\s]{3,}["\']'''

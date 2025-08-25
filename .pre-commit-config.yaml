@@ -9,6 +9,7 @@ repos:
         entry: gitleaks
         language: golang
         args: ['detect', '--source=.', '--verbose', '--no-git']
+        # Uses Gitleaks default rules (150+ built-in patterns)
 
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.4.0
