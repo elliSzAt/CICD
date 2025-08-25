@@ -8,7 +8,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
+  IMAGE_NAME: ${{ github.repository }} # output name of the image
   NODE_VERSION: '18'
 
 jobs:
@@ -30,26 +30,23 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITLEAKS_LICENSE: ${{ secrets.GITLEAKS_LICENSE }} # Only required for Organizations, not personal accounts.
 
-      - name: Notify Telegram on Security Failure
-        if: failure()
-        uses: appleboy/telegram-action@master
-        with:
-          to: ${{ secrets.TELEGRAM_CHAT_ID }}
-          token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          format: markdown
-          message: |
-            🚨 *SECURITY ALERT* 🚨
+      # - name: Notify Telegram on Security Failure
+      #   if: failure()
+      #   uses: appleboy/telegram-action@master
+      #   with:
+      #     to: ${{ secrets.TELEGRAM_CHAT_ID }}
+      #     token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      #     format: markdown
+      #     message: |
+      #       🚨 *SECURITY ALERT* 🚨
+      #       *Repository:* `${{ github.repository }}`
+      #       *Branch:* `${{ github.ref_name }}`
+      #       *Commit:* `${{ github.sha }}`
+      #       *Author:* ${{ github.actor }}
+      #       ❌ **Gitleaks found potential secrets in your code!**
+      #       Please review your commit and remove any hardcoded secrets.
+      #       🔗 [View Action Details](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
 
-            *Repository:* `${{ github.repository }}`
-            *Branch:* `${{ github.ref_name }}`
-            *Commit:* `${{ github.sha }}`
-            *Author:* ${{ github.actor }}
-
-            ❌ **Gitleaks found potential secrets in your code!**
-
-            Please review your commit and remove any hardcoded secrets.
-
-            🔗 [View Action Details](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
 
   # ========================
   # CI PHASE - Build & Test
@@ -78,24 +75,22 @@ jobs:
       - name: Build application (if needed)
         run: echo "Build completed successfully"
 
-      - name: Notify Telegram on Build Failure
-        if: failure()
-        uses: appleboy/telegram-action@master
-        with:
-          to: ${{ secrets.TELEGRAM_CHAT_ID }}
-          token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          format: markdown
-          message: |
-            ❌ *BUILD FAILED* ❌
+      # - name: Notify Telegram on Build Failure
+      #   if: failure()
+      #   uses: appleboy/telegram-action@master
+      #   with:
+      #     to: ${{ secrets.TELEGRAM_CHAT_ID }}
+      #     token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      #     format: markdown
+      #     message: |
+      #       ❌ *BUILD FAILED* ❌
+      #       *Repository:* `${{ github.repository }}`
+      #       *Branch:* `${{ github.ref_name }}`
+      #       *Commit:* `${{ github.sha }}`
+      #       *Author:* ${{ github.actor }}
+      #       Build or tests failed during CI phase.
+      #       🔗 [View Action Details](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
 
-            *Repository:* `${{ github.repository }}`
-            *Branch:* `${{ github.ref_name }}`
-            *Commit:* `${{ github.sha }}`
-            *Author:* ${{ github.actor }}
-
-            Build or tests failed during CI phase.
-
-            🔗 [View Action Details](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
 
   # ========================
   # CD PHASE - Docker Build & Push
@@ -147,24 +142,22 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-      - name: Notify Telegram on Docker Build Failure
-        if: failure()
-        uses: appleboy/telegram-action@master
-        with:
-          to: ${{ secrets.TELEGRAM_CHAT_ID }}
-          token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          format: markdown
-          message: |
-            ❌ *DOCKER BUILD FAILED* ❌
+      # - name: Notify Telegram on Docker Build Failure
+      #   if: failure()
+      #   uses: appleboy/telegram-action@master
+      #   with:
+      #     to: ${{ secrets.TELEGRAM_CHAT_ID }}
+      #     token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      #     format: markdown
+      #     message: |
+      #       ❌ *DOCKER BUILD FAILED* ❌
+      #       *Repository:* `${{ github.repository }}`
+      #       *Branch:* `${{ github.ref_name }}`
+      #       *Commit:* `${{ github.sha }}`
+      #       *Author:* ${{ github.actor }}
+      #       Docker image build/push failed during CD phase.
+      #       🔗 [View Action Details](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
 
-            *Repository:* `${{ github.repository }}`
-            *Branch:* `${{ github.ref_name }}`
-            *Commit:* `${{ github.sha }}`
-            *Author:* ${{ github.actor }}
-
-            Docker image build/push failed during CD phase.
-
-            🔗 [View Action Details](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
 
   # ========================
   # CD PHASE - Deploy (Simulation)
@@ -188,55 +181,53 @@ jobs:
           echo "✅ Deployment completed successfully!"
           echo "Application is now running at: https://your-domain.com"
 
-      - name: Notify Telegram on Deployment Failure
-        if: failure()
-        uses: appleboy/telegram-action@master
-        with:
-          to: ${{ secrets.TELEGRAM_CHAT_ID }}
-          token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          format: markdown
-          message: |
-            ❌ *DEPLOYMENT FAILED* ❌
+      # - name: Notify Telegram on Deployment Failure
+      #   if: failure()
+      #   uses: appleboy/telegram-action@master
+      #   with:
+      #     to: ${{ secrets.TELEGRAM_CHAT_ID }}
+      #     token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      #     format: markdown
+      #     message: |
+      #       ❌ *DEPLOYMENT FAILED* ❌
+      #       *Repository:* `${{ github.repository }}`
+      #       *Branch:* `${{ github.ref_name }}`
+      #       *Commit:* `${{ github.sha }}`
+      #       *Author:* ${{ github.actor }}
+      #       Application deployment failed.
+      #       🔗 [View Action Details](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
 
-            *Repository:* `${{ github.repository }}`
-            *Branch:* `${{ github.ref_name }}`
-            *Commit:* `${{ github.sha }}`
-            *Author:* ${{ github.actor }}
-
-            Application deployment failed.
-
-            🔗 [View Action Details](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
 
   # ========================
-  # NOTIFICATION - Success
+  # NOTIFICATION - Success (COMMENTED OUT)
   # ========================
-  notify-success:
-    name: 📢 Success Notification
-    runs-on: ubuntu-latest
-    needs: [security-scan, build-and-test, docker-build, deploy]
-    if: success() && github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
-
-    steps:
-      - name: Notify Telegram on Success
-        uses: appleboy/telegram-action@master
-        with:
-          to: ${{ secrets.TELEGRAM_CHAT_ID }}
-          token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          format: markdown
-          message: |
-            ✅ *PIPELINE SUCCESS* ✅
-
-            *Repository:* `${{ github.repository }}`
-            *Branch:* `${{ github.ref_name }}`
-            *Commit:* `${{ github.sha }}`
-            *Author:* ${{ github.actor }}
-
-            🔐 **Security Scan:** ✅ Passed (Gitleaks)
-            🧪 **Build & Test:** ✅ Passed
-            🐳 **Docker Build:** ✅ Completed
-            🚀 **Deployment:** ✅ Successful
-
-            🌐 **Application URL:** https://your-domain.com
-            🔗 [View Action Details](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
-
-            🎉 *Your application is now live!*
+  # notify-success:
+  #   name: 📢 Success Notification
+  #   runs-on: ubuntu-latest
+  #   needs: [security-scan, build-and-test, docker-build, deploy]
+  #   if: success() && github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
+  #
+  #   steps:
+  #     - name: Notify Telegram on Success
+  #       uses: appleboy/telegram-action@master
+  #       with:
+  #         to: ${{ secrets.TELEGRAM_CHAT_ID }}
+  #         token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+  #         format: markdown
+  #         message: |
+  #           ✅ *PIPELINE SUCCESS* ✅
+  #
+  #           *Repository:* `${{ github.repository }}`
+  #           *Branch:* `${{ github.ref_name }}`
+  #           *Commit:* `${{ github.sha }}`
+  #           *Author:* ${{ github.actor }}
+  #
+  #           🔐 **Security Scan:** ✅ Passed (Gitleaks)
+  #           🧪 **Build & Test:** ✅ Passed
+  #           🐳 **Docker Build:** ✅ Completed
+  #           🚀 **Deployment:** ✅ Successful
+  #
+  #           🌐 **Application URL:** https://your-domain.com
+  #           🔗 [View Action Details](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
+  #
+  #           🎉 *Your application is now live!*
