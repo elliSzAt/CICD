@@ -49,6 +49,8 @@ Pipeline sẽ tự động push Docker images lên GitHub Container Registry (gh
 
 ## 🏗️ Kiến trúc Pipeline
 
+https://scontent-sin11-1.xx.fbcdn.net/v/t39.30808-6/534314759_1232520465342123_342441881293326539_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeH6uXCWhS6W4AgwwDfPtyvD7NzcdnxLNhjs3Nx2fEs2GJ4CwStGVqO3TqGjLutrFYWikZCiIwwTGwIUjG05EHgt&_nc_ohc=iyIpY9e14rIQ7kNvwFffCxb&_nc_oc=Adlb8r134gTgeC4ZZ78tqae0KiAda8sVvB2xAnYqAURu2_RsM9_IfiNBRbaSUWwj9eg&_nc_zt=23&_nc_ht=scontent-sin11-1.xx&_nc_gid=JySUaqYCjZqwA1TESkPp9Q&oh=00_AfX5EbuXdSIzi9DQ_-X6YD_DqG3zNFTWL8Up0xYVfQpwaA&oe=68B2071C
+
 ### CI Phase (Continuous Integration)
 ```mermaid
 graph TD
