@@ -8,9 +8,14 @@ on:
   pull_request_target:
     branches: [ main, master ]
 
+permissions:
+  contents: read
+  packages: write
+  actions: read
+
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }} # output name of the image
+  IMAGE_NAME: ${{ github.repository }}
   NODE_VERSION: '18'
 
 jobs:
