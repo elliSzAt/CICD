@@ -120,6 +120,9 @@ jobs:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+          # Alternative: Use Personal Access Token if GITHUB_TOKEN fails
+          # username: ${{ secrets.CR_USER }}
+          # password: ${{ secrets.CR_PAT }}
 
       - name: Debug Registry Info
         run: |
