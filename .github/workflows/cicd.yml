@@ -185,17 +185,27 @@ jobs:
     if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
 
     steps:
-      - name: Deploy to Server (Simulation)
+      - name: Deploy to Local Docker
         run: |
-          echo "🚀 Deploying application..."
+          echo "🚀 Deploying application locally..."
           echo "Image: ${{ needs.docker-build.outputs.image-url }}"
           echo "Digest: ${{ needs.docker-build.outputs.image-digest }}"
 
-          # Simulate deployment delay
-          sleep 10
+          # Pull the image from registry
+          docker pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+
+          # Stop existing container if running
+          docker stop cicd-app 2>/dev/null || true
+          docker rm cicd-app 2>/dev/null || true
+
+          # Run the new container
+          docker run -d \
+            --name cicd-app \
+            -p 3000:3000 \
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
 
           echo "✅ Deployment completed successfully!"
-          echo "Application is now running at: https://your-domain.com"
+          echo "Application is now running at: http://localhost:3000"
 
       # - name: Notify Telegram on Deployment Failure
       #   if: failure()
