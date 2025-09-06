@@ -161,7 +161,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          platforms: linux/amd64
+          platforms: linux/amd64,linux/arm64
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
@@ -195,6 +195,9 @@ jobs:
     if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
 
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
       - name: Deploy to Local Docker
         run: |
           echo "🚀 Deploying application locally..."
@@ -205,8 +208,11 @@ jobs:
           IMAGE_URL="${{ env.REGISTRY }}/${{ needs.docker-build.outputs.lowercase-repo }}:latest"
           echo "Docker Image URL: ${IMAGE_URL}"
 
-          # Pull the image from registry
-          docker pull ${IMAGE_URL}
+          # Try to pull the image from registry, fallback to local build if fails
+          if ! docker pull ${IMAGE_URL}; then
+            echo "⚠️  Failed to pull from registry, building locally..."
+            docker build -t ${IMAGE_URL} .
+          fi
 
           # Stop existing container if running
           docker stop cicd-app 2>/dev/null || true
