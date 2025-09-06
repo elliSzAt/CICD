@@ -104,7 +104,7 @@ jobs:
   # ========================
   docker-build:
     name: 🐳 Docker Build & Push
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: [security-scan, build-and-test]
     if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
 
@@ -180,7 +180,7 @@ jobs:
   # ========================
   deploy:
     name: 🚀 Deploy Application
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: docker-build
     if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
 
